@@ -1,3 +1,4 @@
+
 import flet as ft
 from alert import AlertManager
 from autonoleggio import Autonoleggio
@@ -76,7 +77,42 @@ def main(page: ft.Page,):
         input_posti.value = currentVal - 1
         input_posti.update()
 
-    def handleUpdate(e):
+    def handleConfirm(e):
+        try:
+           autonoleggio.aggiungi_automobile(input_marca.value, input_modello.value, input_anno.value, input_posti.value)
+           input_marca.value=""
+           input_modello.value=""
+           input_anno.value=""
+           input_posti.value="0"
+           input_marca.update()
+           input_modello.update()
+           input_anno.update()
+           input_posti.update()
+           aggiorna_lista_auto()
+
+
+
+        except ValueError :
+            alert.show_alert(" ❌ Errore:inserisci valori numerici per anno e posti")
+            input_marca.value = ""
+            input_modello.value = ""
+            input_anno.value = ""
+            input_posti.value = "0"
+            input_marca.update()
+            input_modello.update()
+            input_anno.update()
+            input_posti.update()
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -87,7 +123,7 @@ def main(page: ft.Page,):
     # Bottoni per la gestione dell'inserimento di una nuova auto
     minus_btn=ft.IconButton(icon=ft.Icons.REMOVE,icon_color="red" , on_click=handleRemove,bgcolor="transparent")
     plus_btn=ft.IconButton(icon=ft.Icons.ADD,icon_color="green", on_click=handleAdd,bgcolor="transparent")
-    confirm_btn=ft.ElevatedButton(text="Aggiungi automobile", on_click=handleUpdate)
+    confirm_btn=ft.ElevatedButton(text="Aggiungi automobile", on_click=handleConfirm)
 
     # --- LAYOUT ---
     page.add(
