@@ -42,7 +42,7 @@ def main(page: ft.Page,):
     input_marca=ft.TextField(label="Marca",width=150)
     input_modello=ft.TextField(label="Modello",width=150)
     input_anno=ft.TextField(label="Anno",width=150)
-    input_posti=ft.TextField(width=50, disabled=True, value= "0" , text_align=ft.TextAlign.CENTER)
+    input_posti=ft.TextField(width=50, disabled=True, value= "0" , text_align=ft.TextAlign.CENTER) #disabled fa si che non si possa inserire del testo
 
 
     # --- FUNZIONI APP ---
@@ -66,13 +66,13 @@ def main(page: ft.Page,):
 
     # Handlers per la gestione dei bottoni utili all'inserimento di una nuova auto
     def handleAdd(e):
-        currentVal = int(input_posti.value)
+        currentVal = int(input_posti.value)  #prende il valore della casella di testo come intero e lo aumenta di uno
 
         input_posti.value = currentVal + 1
         input_posti.update()
 
     def handleRemove(e):
-        currentVal = int(input_posti.value)
+        currentVal = int(input_posti.value) #prende il valore della casella di testo come intero e lo diminuisce di uno
 
         input_posti.value = currentVal - 1
         input_posti.update()
@@ -81,8 +81,8 @@ def main(page: ft.Page,):
         try:
            autonoleggio.aggiungi_automobile(input_marca.value, input_modello.value, input_anno.value, input_posti.value)
            input_marca.value=""
-           input_modello.value=""
-           input_anno.value=""
+           input_modello.value=""  # aggiungo la nuova auto passando i valori dei TextField alla funzione di classe Autonoleggio
+           input_anno.value=""     # e resetto i campi di testo, dopo chiamo la funzione aggiorna lista
            input_posti.value="0"
            input_marca.update()
            input_modello.update()
@@ -90,9 +90,7 @@ def main(page: ft.Page,):
            input_posti.update()
            aggiorna_lista_auto()
 
-
-
-        except ValueError :
+        except ValueError :  # tramite l' except scateno l'eccezione e mostro il banner
             alert.show_alert(" ❌ Errore:inserisci valori numerici per anno e posti")
             input_marca.value = ""
             input_modello.value = ""
